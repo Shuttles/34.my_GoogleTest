@@ -1,7 +1,7 @@
 .PONY: clean
 
 all: main.o haizei/test.o
-	g++ -o ./bin/haizei main.o haizei/test.o
+	g++ -o ./bin/haizei   main.o haizei/test.o
 
 main.o: main.cpp #如果main.cpp修改了，main.o就得重新生成
 	g++ -I./ -c main.cpp

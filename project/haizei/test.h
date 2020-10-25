@@ -31,7 +31,8 @@ struct Function {
 
 int RUN_ALL_TESTS();
 void add_function(TestFuncT, const char *);
-
+//没懂：光哥说执行add_function()前面不加a##_haizei_##b的声明会报错   
+//没懂：为什么这个add_function()的声明也在下面，但是14行却能执行？
 
 
 #endif
