@@ -7,7 +7,7 @@ Function func_arr[100];//全局存储
 
 int RUN_ALL_TESTS() {
     for (int i = 0; i < func_cnt; i++){
-        printf("Run Tests : %s\n", func_arr[i].str);
+        printf(GREEN("[====RUN====]") RED(" %s\n"), func_arr[i].str);
         func_arr[i].func();
         printf("Run End!\n");
     }

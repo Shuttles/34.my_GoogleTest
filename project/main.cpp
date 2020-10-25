@@ -26,12 +26,15 @@ int add(int a, int b) {
 
 TEST(testFunc, add) {
     EXPECT_EQ(add(5, 3), 8);
-    //ASSERT_EQ(add(5, 3), 9);
-    EXPECT_EQ(add(6, 7), 12);
+    EXPECT_NE(add(5, 3), 9);
+    EXPECT_GT(add(6, 7), 10);
+    EXPECT_LE(add(6, 7), 13);
+    EXPECT_GT(add(6, 7), 20);
 }
 
 TEST(test, Funcadd) {
     EXPECT_EQ(add(5, 3), 9);
+    EXPECT_EQ(add(5, 3), 8);
     EXPECT_EQ(add(6, 7), 15);
 }
 
