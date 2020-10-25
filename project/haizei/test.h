@@ -31,9 +31,37 @@ void a##_haizei_##b()
 //1st bug:重复定义的问题，解决：中间加字符_haizei_
 
 
+//用来获取类型所对应的格式化字符串，比如：若是int就是%d
+#define TYPE_STR(a) _Generic((a),\
+    int : "%d",\
+    double : "%lf",\
+    float : "%f",\
+    long long : "%lld"\
+)
+
+//其实我没搞懂为什么要封装这个P宏，但是不封装的话会报错。。报错我没看懂
+//printf(YELLOW_HL("%d") " VS " YELLOW_HL("%d"), _a, _b); 这么写虽然不报错，但是只能输出整型，所以必须写TPYE宏
+//printf(YELLOW_HL(TYPE(_a)) " VS " YELLOW_HL(TYPE(_b)), _a, _b);这么写就会报错，但是不懂为什么
+//关于泛型宏，见1.CProgrammingLearning
+#define P(a, color) {\
+    char fmt[1000];\
+    sprintf(fmt, color("%s"), TYPE_STR(a));\
+    printf(fmt, a);\
+}
+
 #define EXPECT(a, b, cmp) {\
-    printf(GREEN("[-----------]") #a " " #cmp " " #b);\
-    printf(" %s\n", (a)  cmp  (b) ? GREEN_HL("TRUE") : RED_HL("FALSE"));\
+    __typeof(a) _a = (a);\
+    __typeof(b) _b = (b);\
+    haizei_test_info.total += 1;\
+    printf(GREEN("[-----------]") " " #a " " #cmp " " #b);\
+    printf(" %s\n", (_a)  cmp  (_b) ? GREEN_HL("TRUE") : RED_HL("FALSE"));\
+    if (_a cmp _b) haizei_test_info.success += 1;\
+    else {\
+        printf("\n");\
+        printf(YELLOW_HL("\t%s:%d : Failure\n"), __FILE__, __LINE__);\
+        printf(YELLOW_HL("\t\texpect " #a " " #cmp " " #b " actual: "));\
+        printf("\n");\
+    }\
 }
 
 #define EXPECT_EQ(a, b) EXPECT(a, b, ==)
@@ -49,7 +77,11 @@ struct Function {
     const char *str;
 };
 
+struct FunctionInfo { //统计一个测试用例的信息
+    int total, success;
+};
 
+extern struct FunctionInfo haizei_test_info;//声明外部变量,(定义在源文件test.cc中)
 
 int RUN_ALL_TESTS();
 void add_function(TestFuncT, const char *);

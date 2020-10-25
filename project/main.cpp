@@ -9,13 +9,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
-#include <queue>
-#include <stack>
-#include <set>
-#include <map>
-#include <unordered_map>
 #include <string>
-#include <vector>
 //#include <gtest/gtest.h>
 #include <haizei/test.h>
 using namespace std;
@@ -30,6 +24,12 @@ TEST(testFunc, add) {
     EXPECT_GT(add(6, 7), 10);
     EXPECT_LE(add(6, 7), 13);
     EXPECT_GT(add(6, 7), 20);
+}
+
+TEST(testFunc, add2) {
+    EXPECT_EQ(add(100, 200), 300);
+    EXPECT_NE(add(100, 200), 301);
+    EXPECT_EQ(add(6, 9), 15.3);
 }
 
 TEST(test, Funcadd) {
